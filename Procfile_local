@@ -1,1 +1,0 @@
-web: php -S 192.168.33.11:8080 -t public_html
