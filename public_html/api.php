@@ -1,17 +1,87 @@
 <?php
-date_default_timezone_set('Asia/Singapore');
-# Set time date_default_timezone_set
+require_once(__DIR__ . '/../config/dbconfig.php');
 
-$name = isset($_POST['name']) ? htmlspecialchars($_POST["name"], ENT_QUOTES) :  "employeeA";
-$r_eve = "coffee break on 31-Jul";
+// Connect to DB
+try {
+  $_db = new \PDO(DSN, DB_USERNAME, DB_PASSWORD);
+  $_db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+} catch (\PDOException $e) {
+  echo $e->getMessage();
+  exit;
+}
 
-$json_array = array(
-    'time' => date("Y-m-d H:i:s"),
-    'name' => $name,
-    'recommended_event' => $r_eve,
-);
+// Process Request
+try{
+  if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+    throw new \Exception("Error: Request method is wrong.");
+  }
+  if (!isset($_POST['API_name'])) {
+    throw new \Exception("Error: API name is not set.");
+  }
+  switch ($_POST['API_name']) {
+    case 'valid_user_list':
+      $stmt = $_db->prepare("select id,name from users");
+      $stmt->execute();
+      $json_array = array();
+      while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+          $json_array[]=array(
+          'id'=>$row['id'],
+          'name'=>$row['name']
+          );
+      }
+      header("Content-Type: text/javascript; charset=utf-8");
+      echo json_encode($json_array);
+      exit;
 
-header("Content-Type: text/javascript; charset=utf-8");
 
-echo json_encode($json_array);
+      case 'events_list':
+        $stmt = $_db->prepare("select * from events");
+        $stmt->execute();
+        $json_array = array();
+        while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            $json_array[]=array(
+            'id'=>$row['id'],
+            'name'=>$row['name'],
+            'status'=>$row['status'],
+            'potential_participants'=>'dummy',
+            'RSVPed_participants'=>'dummy',
+            'date'=>$row['date'],
+            'category'=>$row['category'],
+            'description'=>$row['description']
+            );
+        }
+        header("Content-Type: text/javascript; charset=utf-8");
+        echo json_encode($json_array);
+        exit;
+
+        case 'user_info':
+          $stmt = $_db->prepare("select * from users where id = :userid");
+          $stmt->execute();
+          $json_array = array([
+            ':userid' => $values['userid']
+          ]);
+          while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+              $json_array[]=array(
+              'id'=>$row['id'],
+              'name'=>$row['name'],
+              'status'=>$row['status'],
+              'potential_participants'=>'dummy',
+              'RSVPed_participants'=>'dummy',
+              'date'=>$row['date'],
+              'category'=>$row['category'],
+              'description'=>$row['description']
+              );
+          }
+          header("Content-Type: text/javascript; charset=utf-8");
+          echo json_encode($json_array);
+          exit;
+    default:
+      throw new \Exception("Error: API name is wrong.");
+  }
+} catch (Exception $e){
+  header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+  echo $e->getMessage();
+  exit;
+}
+
 ?>
