@@ -55,21 +55,22 @@ try{
         exit;
 
         case 'user_info':
+          if (!isset($_POST['userid'])) {
+            throw new \Exception("Error: UserID is not set.");
+          }
           $stmt = $_db->prepare("select * from users where id = :userid");
-          $stmt->execute();
-          $json_array = array([
+          $stmt->execute([
             ':userid' => $values['userid']
           ]);
+          $json_array = array();
           while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
               $json_array[]=array(
               'id'=>$row['id'],
               'name'=>$row['name'],
-              'status'=>$row['status'],
-              'potential_participants'=>'dummy',
-              'RSVPed_participants'=>'dummy',
-              'date'=>$row['date'],
-              'category'=>$row['category'],
-              'description'=>$row['description']
+              'department'=>$row['department'],
+              'years'=>$row['years'],
+              'personality'=>$row['personality'],
+              'reward'=>$row['reward']
               );
           }
           header("Content-Type: text/javascript; charset=utf-8");

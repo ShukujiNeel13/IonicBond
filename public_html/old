@@ -1,0 +1,31 @@
+<!--
+
+<?php
+require_once(__DIR__ . '/../config/dbconfig.php');
+
+try {
+  $_db = new \PDO(DSN, DB_USERNAME, DB_PASSWORD);
+  $_db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+} catch (\PDOException $e) {
+  echo $e->getMessage();
+  exit;
+}
+
+$stmt = $_db->prepare("insert into users (name, password, created, modified) values (:name, :password, now(), now())");
+$res = $stmt->execute([
+  ':name' => $argv[1],
+  ':password' => password_hash($argv[2], PASSWORD_DEFAULT)
+]);
+if($res){
+  echo "user added successfully";
+}else{
+  echo "user add failed";
+} -->
+
+
+$stmt = $_db->prepare("select * from users limimt 1");
+$res = $stmt->execute([]);
+if($res){
+  $json_array = array(
+    'res' => $res
+  );
