@@ -30,6 +30,8 @@ try{
       );
     }
     header("Content-Type: text/javascript; charset=utf-8");
+    header("Access-Control-Allow-Origin: *");
+    // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
 
@@ -50,6 +52,8 @@ try{
       );
     }
     header("Content-Type: text/javascript; charset=utf-8");
+    header("Access-Control-Allow-Origin: *");
+    // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
 
@@ -73,6 +77,8 @@ try{
       );
     }
     header("Content-Type: text/javascript; charset=utf-8");
+    header("Access-Control-Allow-Origin: *");
+    // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
 
@@ -96,6 +102,8 @@ try{
       }
     }
     header("Content-Type: text/javascript; charset=utf-8");
+    header("Access-Control-Allow-Origin: *");
+    // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
 
