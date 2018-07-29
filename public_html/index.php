@@ -101,7 +101,6 @@ function selectimage($cate){
                   <label for="employee_ID">Employee ID</label>
                 </div>
               </div>
-
               <div class="row">
                 <div class="input-field col s6">
                   <input id="role" type="text" class="validate">
@@ -112,7 +111,7 @@ function selectimage($cate){
                   <label for="department">Department</label>
                 </div>
               </div>
-              <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+              <button id="user_submit" class="btn waves-effect waves-light" type="submit" name="action">Submit
                 <i class="material-icons right">send</i>
               </button>
             </form>
