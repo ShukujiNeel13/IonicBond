@@ -9,10 +9,11 @@
         $.ajax({
           type: "post",
           dataType: "json",
-          data: {"API_name":"valid_user_list"},
+          // data: {"API_name":"valid_user_list"},
+          data: {"API_name":"events_list","userid":"12"},
           url : "https://blooming-stream-91650.herokuapp.com/api.php",
           success : function( json ){
-            $("#msg").append("success : "+json[0].name+"<br>");
+            $("#msg").append("success : "+json[0].potential_participants+"<br>");
           },
           error : function (xhr,text,thrown){
             $("#msg").text("error : "+text);

@@ -1,3 +1,44 @@
+<?php
+require_once(__DIR__ . '/../config/config.php');
+require_once(__DIR__ . '/../lib/functions.php');
+
+try {
+  $_db = new \PDO(DSN, DB_USERNAME, DB_PASSWORD);
+  $_db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+} catch (\PDOException $e) {
+  echo $e->getMessage();
+  exit;
+}
+// for User tab
+$stmt = $_db->query("select * from users limit 10;");
+$usrls = $stmt->fetchAll(\PDO::FETCH_OBJ);
+
+// for Event tab
+$stmt = $_db->query("select * from events;");
+$evtls = $stmt->fetchAll(\PDO::FETCH_OBJ);
+
+function selectimage($cate){
+  // echo $cate;
+  switch ($cate) {
+    case "ShortBreak":
+      return "coffee_break.jpg";
+      break;
+    case "Game":
+      return "game.jpg";
+      break;
+    case "Hangout":
+      return "hang_out.jpg";
+      break;
+    case "Dinner":
+      return "dinner.jpg";
+      break;
+    default:
+      return "test_activity.jpg";
+      break;
+  }
+};
+
+?>
 <!DOCTYPE html>
 <html lang='ja'>
 <head>
@@ -48,140 +89,75 @@
       <div id="Tab_Employee" class="col s12 ">
 
         <div class="container">
-        <div class="row">
-          <form class="col s12">
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="name" type="text" class="validate">
-                <label for="name">Employee Name</label>
+          <div class="row">
+            <form class="col s12">
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="name" type="text" class="validate">
+                  <label for="name">Employee Name</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="employee_ID" type="number" class="validate">
+                  <label for="employee_ID">Employee ID</label>
+                </div>
               </div>
-              <div class="input-field col s6">
-                <input id="employee_ID" type="number" class="validate">
-                <label for="employee_ID">Employee ID</label>
+
+              <div class="row">
+                <div class="input-field col s6">
+                  <input id="role" type="text" class="validate">
+                  <label for="role">Role</label>
+                </div>
+                <div class="input-field col s6">
+                  <input id="department" type="text" class="validate">
+                  <label for="department">Department</label>
+                </div>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="input-field col s6">
-                <input id="role" type="text" class="validate">
-                <label for="role">Role</label>
-              </div>
-              <div class="input-field col s6">
-                <input id="department" type="text" class="validate">
-                <label for="department">Department</label>
-              </div>
-            </div>
-
-
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-              <i class="material-icons right">send</i>
-            </button>
-          </form>
-
-
-
-        </div>
+              <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                <i class="material-icons right">send</i>
+              </button>
+            </form>
+          </div>
         </div>
         <br><br><br>
 
         <ul class="collection container">
-          <li class="collection-item avatar">
-            <img src="images/test_activity.jpg" alt="" class="circle">
-            <span class="title">Title</span>
-            <p>First Line <br>
-              Second Line
-            </p>
-            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-          </li>
-          <li class="collection-item avatar">
-            <i class="material-icons circle">folder</i>
-            <span class="title">Title</span>
-            <p>First Line <br>
-              Second Line
-            </p>
-            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-          </li>
-          <li class="collection-item avatar">
-            <i class="material-icons circle green">insert_chart</i>
-            <span class="title">Title</span>
-            <p>First Line <br>
-              Second Line
-            </p>
-            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-          </li>
-          <li class="collection-item avatar">
-            <i class="material-icons circle red">play_arrow</i>
-            <span class="title">Title</span>
-            <p>First Line <br>
-              Second Line
-            </p>
-            <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-          </li>
-        </ul>
 
+          <?php foreach ($usrls as $usri) : ?>
+            <li class="collection-item avatar">
+              <img src="images/profile_default.png" alt="" class="circle">
+              <span class="title"><?= h($usri->name); ?></span>
+              <p><?= h($usri->department); ?><br>
+                <?= h($usri->reward); ?>
+              </p>
+              <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+            </li>
+          <?php endforeach; ?>
+        </ul>
       </div>
+
       <div id="Tab_Events" class="col s12">
         <div class="container">
           <div class="row">
-            <div class="col s3">
-              <div class="card">
-                <div class="card-image">
-                  <img src="images/test_activity.jpg">
-                  <span class="card-title">Card Title</span>
-                </div>
-                <div class="card-content">
-                  <span class="blue-text">Status: Published</span>
-                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                </div>
-                <div class="card-action grey">
-                  <a href="#" class="white-text">DELETE</a>
-                </div>
-              </div>
-            </div>
-
-            <div class="col s3">
-              <div class="card">
-                <div class="card-image">
-                  <img src="images/test_activity.jpg">
-                  <span class="card-title">Card Title</span>
-                  <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-                </div>
-                <div class="card-content">
-                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
+            <?php foreach ($evtls as $evti) : ?>
+              <div class="col s3">
+                <div class="card">
+                  <div class="card-image">
+                    <img src="images/<?= h(selectimage($evti->category)); ?>">
+                    <span class="card-title"><?= h($evti->category); ?></span>
+                    <!-- <span class="card-title"><?= h($evti->name); ?></span> -->
+                  </div>
+                  <div class="card-content">
+                    <span class="blue-text">Status: <?= h($evti->status); ?></span>
+                    <p><?= h($evti->description); ?></p>
+                  </div>
+                  <div class="card-action grey">
+                    <a href="#" class="white-text">DELETE</a>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <div class="col s3">
-              <div class="card">
-                <div class="card-image">
-                  <img src="images/test_activity.jpg">
-                  <span class="card-title">Card Title</span>
-                  <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-                </div>
-                <div class="card-content">
-                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col s3">
-              <div class="card">
-                <div class="card-image">
-                  <img src="images/test_activity.jpg">
-                  <span class="card-title">Card Title</span>
-                  <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-                </div>
-                <div class="card-content">
-                  <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require little markup to use effectively.</p>
-                </div>
-              </div>
-            </div>
+            <?php endforeach; ?>
           </div>
-
         </div>
-
-
 
       </div>
       <div id="Tab_Analysis" class="col s12 ">

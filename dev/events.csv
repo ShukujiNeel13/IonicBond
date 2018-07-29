@@ -1,5 +1,5 @@
 id,name,status,date,category,description
-1,'Coffee Icebreaker','Created','2018-08-06 15:00:00','Short Break','Let us get together to explore the cafes where everyone feels at ease to just enjoy good food good coffee and good company.'
-2,'Laser Tag','Published','2018-08-05 13:00:00','Game','Looking for an exhilarating adventure? Get ready and join us for a session of laser tag. Navigate through a maze build up your team bonding or simply just have a shootout for an exciting experience.'
-3,'Cooking Class + Potluck Party','Confirmed','2018-07-29 18:00:00','Dinner','Come and learn from the experienced chefs. Each cooking class will have different theme and it would be a great session to cook eat and share the love of cooking or eating.'
-4,'Chinatown Walking Trails','Confirmed','2018-07-28 15:00:00','Hang out','Come and join us for a healthy game of basketball where sweat fun and laughter meet.'
+1,'Coffee Icebreaker','Created','2018-08-06 15:00:00',ShortBreak,'Let us get together to explore the cafes where everyone feels at ease to just enjoy good food good coffee and good company.'
+2,'Laser Tag','Published','2018-08-05 13:00:00',Game,'Looking for an exhilarating adventure? Get ready and join us for a session of laser tag. Navigate through a maze build up your team bonding or simply just have a shootout for an exciting experience.'
+3,'Cooking Class + Potluck Party','Confirmed','2018-07-29 18:00:00',Dinner,'Come and learn from the experienced chefs. Each cooking class will have different theme and it would be a great session to cook eat and share the love of cooking or eating.'
+4,'Chinatown Walking Trails','Confirmed','2018-07-28 15:00:00',Hangout,'Come and join us for a healthy game of basketball where sweat fun and laughter meet.'
