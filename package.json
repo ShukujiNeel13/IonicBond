@@ -1,5 +1,5 @@
 {
-  "name": "IonicBond",
+  "name": "IonicBond2",
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
@@ -20,7 +20,9 @@
   },
   "dependencies": {
     "expo": "^27.0.1",
+    "native-base": "^2.7.2",
     "react": "16.3.1",
-    "react-native": "~0.55.2"
+    "react-native": "~0.55.2",
+    "react-navigation": "^2.9.3"
   }
 }
