@@ -10,7 +10,8 @@ try {
   exit;
 }
 
-header("Content-Type: text/javascript; charset=utf-8");
+// header("Content-Type: text/javascript; charset=utf-8");
+header("Content-Type: application/json; charset=utf-8");
 header("Access-Control-Allow-Origin: *");
 
 // Process Request
@@ -32,19 +33,24 @@ try{
         'name'=>$row['name']
       );
     }
-    // header("Content-Type: text/javascript; charset=utf-8");
-    // header("Access-Control-Allow-Origin: *");
-    // header("Access-Control-Allow-Headers: *");
-    // header("Access-Control-Allow-Methods: *");
-    // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
 
     case 'events_list':
-    $stmt = $_db->prepare("select * from events");
-    $stmt->execute();
+    if (!isset($_POST['userid'])) {
+      throw new \Exception("Error: UserID is not set.");
+    }
+    $stmt = $_db->prepare("select * from events where id in (select eventid from usr_evt where userid = :userid);");
+    $stmt->execute([
+      ':userid' => $_POST['userid']
+    ]);
     $json_array = array();
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      $stmt_sub = $_db->prepare("select name from users where id in (select userid from usr_evt where eventid = :eventid AND rsvp = true);");
+      $stmt_sub->execute([
+        ':eventid' => $row['id']
+      ]);
+      $row_sub = $stmt_sub->fetch(PDO::FETCH_ASSOC);
       $json_array[]=array(
         'id'=>$row['id'],
         'name'=>$row['name'],
@@ -56,10 +62,6 @@ try{
         'description'=>$row['description']
       );
     }
-    // header("Content-Type: text/javascript; charset=utf-8");
-    // header("Access-Control-Allow-Origin: *");
-    // header("Access-Control-Allow-Headers: Content-Type");
-    // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
 
@@ -82,10 +84,6 @@ try{
         'reward'=>$row['reward']
       );
     }
-    // header("Content-Type: text/javascript; charset=utf-8");
-    // header("Access-Control-Allow-Origin: *");
-    // header("Access-Control-Allow-Headers: Content-Type");
-    // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
 
@@ -108,10 +106,6 @@ try{
         $json_array = 0;
       }
     }
-    // header("Content-Type: text/javascript; charset=utf-8");
-    // header("Access-Control-Allow-Origin: *");
-    // header("Access-Control-Allow-Headers: Content-Type");
-    // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
 
