@@ -13,6 +13,6 @@ There are 3 main components to this project
 
 1) The Mobile App is a cross platform react-native mobile app [Create React Native App](https://github.com/react-community/create-react-native-app). The Mobile App prototype is available in the mobile_app branch.
 
-2) The Web App is a PHP application hosted on Heroku Cloud serving requests for the supported Admin functions.
+2) The Web App is a PHP application hosted on Heroku Cloud serving requests for the supported Admin functions. The Web App prototype is available in the company/master branch.
 
 3) The data analysis unit is a python application included within the repository as a script, further data analysis work performed using R is also included.
