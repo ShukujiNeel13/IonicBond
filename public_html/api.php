@@ -46,17 +46,37 @@ try{
     ]);
     $json_array = array();
     while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+      // fetch potential participants
+      $p_par = '';
+      $stmt_sub = $_db->prepare("select name from users where id in (select userid from usr_evt where eventid = :eventid);");
+      $stmt_sub->execute([
+        ':eventid' => $row['id']
+      ]);
+      while($row_sub = $stmt_sub->fetch(PDO::FETCH_ASSOC)){
+        $p_par .= $row_sub['name'];
+        $p_par .= ',';
+      }
+      $p_par = substr($p_par,0,-1);
+
+      // fetch RSVPed participants
+      $r_par = '';
       $stmt_sub = $_db->prepare("select name from users where id in (select userid from usr_evt where eventid = :eventid AND rsvp = true);");
       $stmt_sub->execute([
         ':eventid' => $row['id']
       ]);
-      $row_sub = $stmt_sub->fetch(PDO::FETCH_ASSOC);
+      while($row_sub = $stmt_sub->fetch(PDO::FETCH_ASSOC)){
+        $r_par .= $row_sub['name'];
+        $r_par .= ',';
+      }
+      $r_par = substr($r_par,0,-1);
+
+      // make response
       $json_array[]=array(
         'id'=>$row['id'],
         'name'=>$row['name'],
         'status'=>$row['status'],
-        'potential_participants'=>'dummy',
-        'RSVPed_participants'=>'dummy',
+        'potential_participants'=>$p_par,
+        'RSVPed_participants'=>$r_par,
         'date'=>$row['date'],
         'category'=>$row['category'],
         'description'=>$row['description']

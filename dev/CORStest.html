@@ -12,7 +12,7 @@
           data: {"API_name":"valid_user_list"},
           url : "https://blooming-stream-91650.herokuapp.com/api.php",
           success : function( json ){
-            $("#msg").append("success : "+json+"<br>");
+            $("#msg").append("success : "+json[0].name+"<br>");
           },
           error : function (xhr,text,thrown){
             $("#msg").text("error : "+text);
