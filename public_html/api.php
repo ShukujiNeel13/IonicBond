@@ -10,6 +10,9 @@ try {
   exit;
 }
 
+header("Content-Type: text/javascript; charset=utf-8");
+header("Access-Control-Allow-Origin: *");
+
 // Process Request
 try{
   if ($_SERVER['REQUEST_METHOD'] != 'POST') {
@@ -29,9 +32,10 @@ try{
         'name'=>$row['name']
       );
     }
-    header("Content-Type: text/javascript; charset=utf-8");
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: Content-Type");
+    // header("Content-Type: text/javascript; charset=utf-8");
+    // header("Access-Control-Allow-Origin: *");
+    // header("Access-Control-Allow-Headers: *");
+    // header("Access-Control-Allow-Methods: *");
     // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
@@ -52,9 +56,9 @@ try{
         'description'=>$row['description']
       );
     }
-    header("Content-Type: text/javascript; charset=utf-8");
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: Content-Type");
+    // header("Content-Type: text/javascript; charset=utf-8");
+    // header("Access-Control-Allow-Origin: *");
+    // header("Access-Control-Allow-Headers: Content-Type");
     // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
@@ -78,9 +82,9 @@ try{
         'reward'=>$row['reward']
       );
     }
-    header("Content-Type: text/javascript; charset=utf-8");
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: Content-Type");
+    // header("Content-Type: text/javascript; charset=utf-8");
+    // header("Access-Control-Allow-Origin: *");
+    // header("Access-Control-Allow-Headers: Content-Type");
     // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
@@ -104,9 +108,9 @@ try{
         $json_array = 0;
       }
     }
-    header("Content-Type: text/javascript; charset=utf-8");
-    header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: Content-Type");
+    // header("Content-Type: text/javascript; charset=utf-8");
+    // header("Access-Control-Allow-Origin: *");
+    // header("Access-Control-Allow-Headers: Content-Type");
     // header("Content-Type: text/javascript; charset=utf-8; Access-Control-Allow-Origin: *");
     echo json_encode($json_array);
     exit;
