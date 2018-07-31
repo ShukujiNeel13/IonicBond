@@ -2,7 +2,7 @@ Important Note: the master branch has all the project components combined togeth
 
 Thank you for visiting this repository! Below is an introduction to the project.
 
-This project is started for a social cause: Developing and bolstering social diversity at workplace, the needs for which are well documented in our proposal / pitch file.
+This project is started for a social cause: Developing and bolstering social diversity at workplace, the needs for which are well documented in our proposal / pitch.
 
 The project comprises of a smart enterprise platform designed to promote workplace diversity through gamified team building. The users for this product will be companies / organizations / enterprises.
 
