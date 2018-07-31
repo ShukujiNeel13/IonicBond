@@ -1,4 +1,4 @@
-Important Note: the master branch has all the components added together, as most of the components were added to it on just after the initial commit. The product components will be neatly segregated into respective branches, since these are prototypes and will be improved. An initial stable release will be confirmed by our team if possible, during which the entire product suite will be available in the master branch.
+Important Note: the master branch has all the project components combined together, as most of the these were added to it just after the initial commit. The product components will be neatly segregated into respective branches, since these are prototypes and will be improved. An initial stable release will be confirmed by our team if possible, during which the entire product suite will be available in the master branch.
 
 Thank you for visiting this repository! Below is an introduction to the project.
 
